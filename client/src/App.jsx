@@ -5,10 +5,12 @@ import SigninPage from "./pages/SigninPage";
 import SignupPage from "./pages/SignupPage";
 import DashboardPage from "./pages/DashboardPage";
 import AboutPage from "./pages/AboutPage";
+import HeaderComponent from "./components/HeaderComponent";
 
 const App = () => {
   return (
     <BrowserRouter>
+      <HeaderComponent />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/project" element={<ProjectPage />} />
