@@ -42,7 +42,7 @@ const HeaderComponent = () => {
         </Button>
 
         <Link to="/sign-in">
-          <Button gradientDuoTone="purpleToBlue" pill>
+          <Button gradientDuoTone="purpleToBlue" outline pill>
             Masuk
           </Button>
         </Link>
