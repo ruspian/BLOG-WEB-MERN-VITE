@@ -102,7 +102,7 @@ const SignupPage = () => {
               <Label value="Kata Sandi" />
               <TextInput
                 type="password"
-                placeholder="Password Anda"
+                placeholder="**************"
                 id="password"
                 onChange={handleChange}
               />
