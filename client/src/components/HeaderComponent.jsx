@@ -14,7 +14,7 @@ const HeaderComponent = () => {
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
       >
-        <span className="px-2 py-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-yellow-400 rounded-lg text-white">
+        <span className="px-2 py-1 bg-gradient-to-r from-green-500 via-blue-500 to-blue-700 rounded-lg text-white">
           Coy
         </span>
         Blog
@@ -42,7 +42,7 @@ const HeaderComponent = () => {
         </Button>
 
         <Link to="/sign-in">
-          <Button gradientDuoTone="purpleToBlue" outline pill>
+          <Button gradientDuoTone="greenToBlue" outline pill>
             Masuk
           </Button>
         </Link>
@@ -50,11 +50,11 @@ const HeaderComponent = () => {
         {/* tombol hamberger */}
         <Navbar.Toggle />
       </div>
+
       {/* tombol home about dan project */}
       <Navbar.Collapse>
         {/* as='div' agar tidak error di console browser */}
         <Navbar.Link active={path === "/"} as={"div"}>
-          {" "}
           <Link to="/">Home</Link>
         </Navbar.Link>
         <Navbar.Link active={path === "/about"} as={"div"}>
