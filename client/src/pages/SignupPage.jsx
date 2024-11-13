@@ -1,8 +1,61 @@
-import { Button, Label, TextInput } from "flowbite-react";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignupPage = () => {
+  const [formData, setFormData] = useState({});
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  // mengambil data inputan user dari form
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value.trim(),
+    });
+  };
+  // console.log(formData);
+
+  const handleSubmit = async (e) => {
+    // menghentikan tindakan default dari browser
+    e.preventDefault();
+
+    if (!formData.username || !formData.email || !formData.password) {
+      setErrorMessage("Mohon isi semua kolom");
+    }
+
+    try {
+      setLoading(true);
+      setErrorMessage(null);
+
+      // mengirimkan data user ke server
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (data.success === false) {
+        return setErrorMessage(data.message);
+      }
+
+      setLoading(false);
+
+      if (res.ok) {
+        navigate("/signin");
+      }
+    } catch (error) {
+      setErrorMessage(error.message);
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen mt-20">
       <div className="flex p-3 max-w-3xl mx-auto flex-col md:flex-row gap-5">
@@ -24,10 +77,15 @@ const SignupPage = () => {
 
         {/* bagian kanan  */}
         <div className="flex-1">
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="">
               <Label value="Nama" />
-              <TextInput type="text" placeholder="Nama Anda" id="username" />
+              <TextInput
+                type="text"
+                placeholder="Nama Anda"
+                id="username"
+                onChange={handleChange}
+              />
             </div>
 
             <div className="">
@@ -36,6 +94,7 @@ const SignupPage = () => {
                 type="email"
                 placeholder="emailanda@contoh.com"
                 id="email"
+                onChange={handleChange}
               />
             </div>
 
@@ -45,11 +104,23 @@ const SignupPage = () => {
                 type="password"
                 placeholder="Password Anda"
                 id="password"
+                onChange={handleChange}
               />
             </div>
 
-            <Button gradientDuoTone="greenToBlue" type="submit">
-              Daftar
+            <Button
+              gradientDuoTone="greenToBlue"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Spinner size="sm" />
+                  <span className="pl-3">Tunggu Sebentar...</span>
+                </>
+              ) : (
+                "Daftar"
+              )}
             </Button>
           </form>
 
@@ -59,6 +130,11 @@ const SignupPage = () => {
               Masuk
             </Link>
           </div>
+          {errorMessage && (
+            <Alert className="mt-5" color="failure">
+              {errorMessage}
+            </Alert>
+          )}
         </div>
       </div>
     </div>

@@ -20,10 +20,10 @@ const app = express();
 app.use(express.json());
 
 // route user
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 
 // route auth
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 app.listen(3000, () => {
   console.log("Server berjalan di http://localhost:3000");

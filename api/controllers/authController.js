@@ -6,21 +6,20 @@ export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   //   validasi user name
-  if (!username || username === "") {
-    return next(errorHandler(400, "Mohon isi kolom username!"));
+  if (
+    !username ||
+    username === "" ||
+    !email ||
+    email === "" ||
+    !password ||
+    password === ""
+  ) {
+    return next(errorHandler(400, "Nama, Email, dan Password harus diisi"));
   }
 
-  if (!email || email === "") {
-    return next(errorHandler(400, "Mohon isi kolom email!"));
-  }
-
-  if (!password || password === "") {
-    return next(errorHandler(400, "Mohon isi kolom password!"));
-  }
+  const hashPassword = await bcrypt.hash(password, 10);
 
   try {
-    const hashPassword = await bcrypt.hash(password, 10);
-
     const newUser = new User({ username, email, password: hashPassword });
 
     await newUser.save();
