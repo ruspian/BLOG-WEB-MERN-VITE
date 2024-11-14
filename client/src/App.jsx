@@ -7,6 +7,7 @@ import DashboardPage from "./pages/DashboardPage";
 import AboutPage from "./pages/AboutPage";
 import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
+import PrivateRouteComponent from "./components/PrivateRouteComponent";
 
 const App = () => {
   return (
@@ -17,7 +18,9 @@ const App = () => {
         <Route path="/project" element={<ProjectPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route element={<PrivateRouteComponent />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+        </Route>
         <Route path="/about" element={<AboutPage />} />
       </Routes>
       <FooterComponent />
