@@ -7,6 +7,7 @@ import {
   signinSuccess,
   signinFailure,
 } from "../redux/user/userSlice";
+import GoogleAuthComponent from "../components/GoogleAuthComponent";
 
 const SigninPage = () => {
   const [formData, setFormData] = useState({});
@@ -91,7 +92,6 @@ const SigninPage = () => {
                 onChange={handleChange}
               />
             </div>
-
             <div className="">
               <Label value="Kata Sandi" />
               <TextInput
@@ -101,7 +101,6 @@ const SigninPage = () => {
                 onChange={handleChange}
               />
             </div>
-
             <Button
               gradientDuoTone="greenToBlue"
               type="submit"
@@ -116,6 +115,8 @@ const SigninPage = () => {
                 "Masuk"
               )}
             </Button>
+            <span className="text-xs text-gray-500 text-center">Atau</span>
+            <GoogleAuthComponent />
           </form>
 
           <div className=" flex gap-2 text-sm mt-5">

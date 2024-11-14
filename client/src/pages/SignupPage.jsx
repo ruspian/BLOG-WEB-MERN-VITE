@@ -1,6 +1,7 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import GoogleAuthComponent from "../components/GoogleAuthComponent";
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({});
@@ -122,6 +123,8 @@ const SignupPage = () => {
                 "Daftar"
               )}
             </Button>
+            <span className="text-xs text-gray-500 text-center">Atau</span>
+            <GoogleAuthComponent />
           </form>
 
           <div className=" flex gap-2 text-sm mt-5">
