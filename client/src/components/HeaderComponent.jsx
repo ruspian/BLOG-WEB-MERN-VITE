@@ -1,15 +1,22 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaMoon } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FaMoon, FaSun } from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../redux/theme/themeSlice";
 
 const HeaderComponent = () => {
   // aktif path
   const path = useLocation().pathname;
 
+  // dispatch
+  const dispatch = useDispatch();
+
   // mengambil data user dari redux
   const { currentUser } = useSelector((state) => state.user);
+
+  // mengambil theme dari redux
+  const { theme } = useSelector((state) => state.theme);
 
   return (
     <Navbar className="border-b-2">
@@ -41,8 +48,19 @@ const HeaderComponent = () => {
 
       <div className="flex gap-2 md:order-2">
         {/* tombol dark dan light mode */}
-        <Button className="w-12 h-10 hidden sm:inline" color="grey" pill>
-          <FaMoon />
+        <Button
+          className="w-12 h-10 hidden sm:inline"
+          color="grey"
+          pill
+          onClick={() => {
+            dispatch(toggleTheme());
+          }}
+        >
+          {theme === "light" ? (
+            <FaMoon className="text-black" />
+          ) : (
+            <FaSun className="text-white" />
+          )}
         </Button>
 
         {currentUser ? (

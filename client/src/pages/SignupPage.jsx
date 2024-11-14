@@ -69,7 +69,7 @@ const SignupPage = () => {
             Blog
           </Link>
 
-          <p className="text-sm mt-5">
+          <p className="text-sm mt-5 dark:text-white">
             Daftar sekarang untuk berbagi cerita, gagasan, dan inspirasi Anda
             dengan dunia. Daftar dengan akun Google anda atau dengan Email dan
             Password anda.
@@ -128,7 +128,7 @@ const SignupPage = () => {
           </form>
 
           <div className=" flex gap-2 text-sm mt-5">
-            <span>Sudah punya akun?</span>
+            <span className="dark:text-white">Sudah punya akun?</span>
             <Link to="/signin" className="text-blue-500 hover:underline ">
               Masuk
             </Link>
