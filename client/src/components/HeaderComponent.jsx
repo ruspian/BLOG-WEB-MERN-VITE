@@ -1,11 +1,15 @@
-import { Button, Navbar, TextInput } from "flowbite-react";
+import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
 import { FaMoon } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const HeaderComponent = () => {
   // aktif path
   const path = useLocation().pathname;
+
+  // mengambil data user dari redux
+  const { currentUser } = useSelector((state) => state.user);
 
   return (
     <Navbar className="border-b-2">
@@ -41,11 +45,37 @@ const HeaderComponent = () => {
           <FaMoon />
         </Button>
 
-        <Link to="/signin">
-          <Button gradientDuoTone="greenToBlue" outline pill>
-            Masuk
-          </Button>
-        </Link>
+        {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar
+                alt="User avatar"
+                img={currentUser.profilPicture}
+                rounded
+              />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm">@{currentUser.username}</span>
+              <span className="block text-sm font-medium truncate">
+                @{currentUser.email}
+              </span>
+            </Dropdown.Header>
+            <Link to={"/dashboard?tab=profile"}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>Keluar</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to="/signin">
+            <Button gradientDuoTone="greenToBlue" outline pill>
+              Masuk
+            </Button>
+          </Link>
+        )}
 
         {/* tombol hamberger */}
         <Navbar.Toggle />
