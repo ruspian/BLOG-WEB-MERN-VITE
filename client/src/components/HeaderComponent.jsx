@@ -41,7 +41,7 @@ const HeaderComponent = () => {
           <FaMoon />
         </Button>
 
-        <Link to="/sign-in">
+        <Link to="/signin">
           <Button gradientDuoTone="greenToBlue" outline pill>
             Masuk
           </Button>

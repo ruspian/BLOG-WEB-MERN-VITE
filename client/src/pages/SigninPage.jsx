@@ -1,12 +1,21 @@
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signinStart,
+  signinSuccess,
+  signinFailure,
+} from "../redux/user/userSlice";
 
 const SigninPage = () => {
   const [formData, setFormData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
 
+  // redux
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  // hook useNavigate
   const navigate = useNavigate();
 
   // mengambil data inputan user dari form
@@ -23,12 +32,11 @@ const SigninPage = () => {
     e.preventDefault();
 
     if (!formData.email || !formData.password) {
-      setErrorMessage("Mohon isi semua kolom");
+      return dispatch(signinFailure("Mohon isi semua kolom"));
     }
 
     try {
-      setLoading(true);
-      setErrorMessage(null);
+      dispatch(signinStart());
 
       // mengirimkan data user ke server
       const res = await fetch("/api/auth/signin", {
@@ -42,17 +50,15 @@ const SigninPage = () => {
       const data = await res.json();
 
       if (data.success === false) {
-        return setErrorMessage(data.message);
+        return dispatch(signinFailure(data.message));
       }
 
-      setLoading(false);
-
       if (res.ok) {
+        dispatch(signinSuccess(data));
         navigate("/");
       }
     } catch (error) {
-      setErrorMessage(error.message);
-      setLoading(false);
+      dispatch(signinFailure(error.message));
     }
   };
 
