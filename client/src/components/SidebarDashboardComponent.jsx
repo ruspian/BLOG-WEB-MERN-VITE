@@ -1,5 +1,5 @@
 import { Sidebar } from "flowbite-react";
-import { HiArrowLeft, HiUser } from "react-icons/hi";
+import { HiArrowRight, HiUser } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const SidebarDashboardComponent = () => {
               Profil
             </Sidebar.Item>
           </Link>
-          <Sidebar.Item icon={HiArrowLeft} className="cursor-pointer">
+          <Sidebar.Item icon={HiArrowRight} className="cursor-pointer">
             Keluar
           </Sidebar.Item>
         </Sidebar.ItemGroup>
